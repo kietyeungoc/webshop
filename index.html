@@ -15,7 +15,7 @@ body {
   background-size: cover;
 }
 
-/* overlay làm nền tối */
+/* overlay */
 .overlay {
   background: rgba(0,0,0,0.6);
   height: 100vh;
@@ -24,12 +24,13 @@ body {
   align-items: center;
 }
 
-/* box info */
+/* card */
 .card {
   background: rgba(0,0,0,0.5);
-  padding: 30px;
+  padding: 40px 30px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
+  width: 320px;
 }
 
 /* avatar */
@@ -50,8 +51,46 @@ body {
   transform: scale(1.2);
 }
 
-/* particle canvas */
-canvas {
+/* note */
+.note {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ffd1ec;
+  min-height: 90px;
+}
+
+/* secret */
+.secret-btn {
+  margin-top: 15px;
+  padding: 8px 15px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#secretBox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+}
+
+#secretCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* canvas nền */
+#particles {
   position: fixed;
   top: 0;
   left: 0;
@@ -67,35 +106,127 @@ canvas {
 <div class="overlay">
   <div class="card">
     
-    <!-- avatar -->
-    <img class="avatar" src="https://i.imgur.com/2DhmtJ4.png">
+    <img class="avatar" src="https://i.pinimg.com/736x/c3/04/b3/c304b38ecb0cfc016170dc15323ac175.jpg">
 
-    <h1>Duy</h1>
-    <p>Web của tao đã lên mạng</p>
+    <h1>Ngọc Duy</h1>
+    <p>ez new web</p>
 
-    <!-- trạng thái -->
-    <p>💔 Trạng thái: Đang độc thân</p>
+    <p>💔 Trạng thái: Đang Nghèo</p>
 
-    <!-- icon facebook -->
     <a href="https://www.facebook.com/profile.php?id=61582623579599" target="_blank">
       <img class="icon" src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
     </a>
 
+    <a href="https://www.tiktok.com/@duy367daystudyenglish" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+    </a>
+
+    <div class="note" id="note"></div>
+
+    <button class="secret-btn" onclick="openSecret()">🔒 Bí mật</button>
+
   </div>
 </div>
 
-<!-- nhạc (nếu có link mp3 thì thay vào) -->
-<audio autoplay loop>
-  <source src="" type="audio/mpeg">
-</audio>
+<!-- SECRET -->
+<div id="secretBox">
+  <input type="password" id="pass" placeholder="Nhập mật khẩu">
+  <button onclick="checkPass()">Mở</button>
+  <canvas id="secretCanvas" style="display:none;"></canvas>
+</div>
 
 <script>
-// particle đơn giản
+/* TYPEWRITER */
+const text = `Gap cau tim t bi lag so bad,
+Nao thi freeze, mouth noi toàn sai.
+Tinh tan cau cho cool nhu K-drama,
+Ai de see u xong t forget het bài.
+Conclusion: t like u, not because wifi die đâu nha 💓`;
+
+let i = 0;
+function typing(){
+  if(i < text.length){
+    document.getElementById("note").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typing, 35);
+  }
+}
+typing();
+
+/* SECRET */
+function openSecret(){
+  document.getElementById("secretBox").style.display="flex";
+}
+
+function checkPass(){
+  if(document.getElementById("pass").value === "3667"){
+    startSecret();
+  } else {
+    alert("Sai mật khẩu 😏");
+  }
+}
+
+/* SECRET HEART FULL */
+function startSecret(){
+  document.getElementById("secretCanvas").style.display="block";
+
+  const c = document.getElementById("secretCanvas");
+  const ctx = c.getContext("2d");
+
+  c.width = innerWidth;
+  c.height = innerHeight;
+
+  let hearts = [];
+
+  function spawn(){
+    hearts.push({
+      x: Math.random()*c.width,
+      y: c.height,
+      size: Math.random()*12+6,
+      speed: Math.random()*3+1,
+      a:1
+    });
+  }
+
+  function drawHeart(x,y,s){
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.bezierCurveTo(x,y-s/2,x-s,y-s/2,x-s,y);
+    ctx.bezierCurveTo(x-s,y+s/2,x,y+s,x,y+s);
+    ctx.bezierCurveTo(x,y+s,x+s,y+s/2,x+s,y);
+    ctx.bezierCurveTo(x+s,y-s/2,x,y-s/2,x,y);
+    ctx.fill();
+  }
+
+  function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,c.width,c.height);
+
+    hearts.forEach((h,i)=>{
+      ctx.globalAlpha=h.a;
+      ctx.fillStyle="#ff69b4";
+      drawHeart(h.x,h.y,h.size);
+
+      h.y-=h.speed;
+      h.a-=0.01;
+
+      if(h.a<=0) hearts.splice(i,1);
+    });
+
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+
+  setInterval(spawn,80);
+  draw();
+}
+
+/* PARTICLE TIM NỀN */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
 let particles = [];
 
@@ -103,20 +234,28 @@ for(let i=0;i<100;i++){
   particles.push({
     x: Math.random()*canvas.width,
     y: Math.random()*canvas.height,
-    r: Math.random()*3,
+    r: Math.random()*3 + 2,
     dx: Math.random()-0.5,
     dy: Math.random()-0.5
   });
 }
 
+function drawHeart(x,y,s){
+  ctx.beginPath();
+  ctx.moveTo(x,y);
+  ctx.bezierCurveTo(x,y-s/2,x-s,y-s/2,x-s,y);
+  ctx.bezierCurveTo(x-s,y+s/2,x,y+s,x,y+s);
+  ctx.bezierCurveTo(x,y+s,x+s,y+s/2,x+s,y);
+  ctx.bezierCurveTo(x+s,y-s/2,x,y-s/2,x,y);
+  ctx.fill();
+}
+
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="white";
+  ctx.fillStyle = "#ff69b4";
 
   particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
+    drawHeart(p.x, p.y, p.r*2);
 
     p.x+=p.dx;
     p.y+=p.dy;
