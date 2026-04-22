@@ -2,241 +2,245 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>bio cua duyyyy</title>
+<title>Bio của tao</title>
 
 <style>
 body {
-  margin:0;
-  font-family:Arial;
-  color:white;
-  text-align:center;
-  background:url("https://4kwallpapers.com/images/walls/thumbs_3t/19435.png") no-repeat center/cover fixed;
+  margin: 0;
+  padding: 0;
+  font-family: Arial;
+  color: white;
+  text-align: center;
+  background: url("https://4kwallpapers.com/images/walls/thumbs_3t/19435.png") no-repeat center center fixed;
+  background-size: cover;
 }
 
 /* overlay */
 .overlay {
-  background:rgba(0,0,0,0.6);
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  background: rgba(0,0,0,0.6);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* card */
 .card {
-  background:rgba(0,0,0,0.5);
-  padding:30px;
-  border-radius:20px;
-  width:320px;
+  background: rgba(0,0,0,0.5);
+  padding: 40px 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  width: 320px;
 }
 
 /* avatar */
 .avatar {
-  width:120px;
-  border-radius:50%;
+  width: 120px;
+  border-radius: 50%;
+  border: 3px solid white;
 }
 
-/* mini player */
-.mini-player {
-  background:rgba(0,0,0,0.7);
-  padding:8px;
-  border-radius:10px;
-  cursor:pointer;
-  margin-bottom:10px;
+/* icon */
+.icon {
+  width: 40px;
+  margin: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.icon:hover {
+  transform: scale(1.2);
 }
 
-/* player */
-#fullPlayer {
-  display:none;
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.9);
-  justify-content:center;
-  align-items:center;
-  z-index:20;
-}
-
-.player-box {
-  background:#111;
-  padding:20px;
-  border-radius:15px;
+/* note */
+.note {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ffd1ec;
+  min-height: 90px;
 }
 
 /* secret */
+.secret-btn {
+  margin-top: 15px;
+  padding: 8px 15px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
 #secretBox {
-  display:none;
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:black;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:30;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
 }
 
-/* canvas */
-canvas {
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
+#secretCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
-/* sao băng */
-.meteor {
-  position:fixed;
-  width:2px;
-  height:100px;
-  background:linear-gradient(white,transparent);
-  transform:rotate(45deg);
-  animation:fall linear forwards;
-}
-@keyframes fall {
-  to { transform:translate(-600px,600px) rotate(45deg); opacity:0; }
-}
-
-/* hệ mặt trời */
-.solar {
-  position:fixed;
-  top:50%;
-  transform:translateY(-50%);
-  width:200px;height:200px;
-}
-.left{left:20px;}
-.right{right:20px;}
-
-.sun {
-  width:30px;height:30px;
-  background:yellow;
-  border-radius:50%;
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 20px orange;
-}
-
-.orbit {
-  position:absolute;
-  border:1px dashed rgba(255,255,255,0.2);
-  border-radius:50%;
-  animation:spin linear infinite;
-}
-
-.planet {
-  width:10px;height:10px;
-  border-radius:50%;
-  position:absolute;
-  top:-5px;left:50%;
-}
-
-@keyframes spin {
-  to { transform:rotate(360deg); }
-}
-
-/* rung */
-@keyframes shake {
-  0%{transform:translate(0,0);}
-  25%{transform:translate(5px,-5px);}
-  50%{transform:translate(-5px,5px);}
-  75%{transform:translate(5px,5px);}
-  100%{transform:translate(0,0);}
+/* canvas nền */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="bg"></canvas>
-
-<div class="solar left"></div>
-<div class="solar right"></div>
+<canvas id="particles"></canvas>
 
 <div class="overlay">
-<div class="card">
+  <div class="card">
+    
+    <img class="avatar" src="https://i.pinimg.com/736x/c3/04/b3/c304b38ecb0cfc016170dc15323ac175.jpg">
 
-<div class="mini-player" onclick="openPlayer()">🎧 Play music</div>
+    <h1>Ngọc Duy</h1>
+    <p>ez new web</p>
 
-<img class="avatar" src="https://i.imgur.com/2DhmtJ4.png">
-<h1>Duy</h1>
-<p>💔 Đang Nghèo</p>
+    <p>💔 Trạng thái: Đang Nghèo</p>
 
-<button onclick="openSecret()">🔒 Bí mật</button>
+    <a href="https://www.facebook.com/profile.php?id=61582623579599" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
+    </a>
 
-</div>
-</div>
+    <a href="https://www.tiktok.com/@duy367daystudyenglish" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+    </a>
 
-<!-- PLAYER -->
-<div id="fullPlayer">
-<div class="player-box">
-<button onclick="closePlayer()">✖</button><br><br>
-<button onclick="toggleMusic()" id="btn">▶</button>
+    <div class="note" id="note"></div>
 
-<audio id="music">
-  <source src="https://files.catbox.moe/l4w9lz.mp3" type="audio/mpeg">
-</audio>
+    <button class="secret-btn" onclick="openSecret()">🔒 Bí mật</button>
 
-</div>
+  </div>
 </div>
 
 <!-- SECRET -->
 <div id="secretBox">
-<input type="password" id="pass"><br><br>
-<button onclick="checkPass()">Mở</button>
-<canvas id="secretCanvas"></canvas>
+  <input type="password" id="pass" placeholder="Nhập mật khẩu">
+  <button onclick="checkPass()">Mở</button>
+  <canvas id="secretCanvas" style="display:none;"></canvas>
 </div>
 
 <script>
+/* TYPEWRITER */
+const text = `Gap cau tim t bi lag so bad,
+Nao thi freeze, mouth noi toàn sai.
+Tinh tan cau cho cool nhu K-drama,
+Ai de see u xong t forget het bài.
+Conclusion: t like u, not because wifi die đâu nha 💓`;
 
-/* PLAYER */
-const music=document.getElementById("music");
-const btn=document.getElementById("btn");
-
-function toggleMusic(){
- music.paused?(music.play(),btn.innerText="⏸"):(music.pause(),btn.innerText="▶");
+let i = 0;
+function typing(){
+  if(i < text.length){
+    document.getElementById("note").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typing, 35);
+  }
 }
-
-function openPlayer(){fullPlayer.style.display="flex";}
-function closePlayer(){fullPlayer.style.display="none";}
+typing();
 
 /* SECRET */
-function openSecret(){secretBox.style.display="flex";}
+function openSecret(){
+  document.getElementById("secretBox").style.display="flex";
+}
 
 function checkPass(){
- if(pass.value==="3667"){
-  explodeHearts();
- } else {
-  shakeScreen();
- }
+  if(document.getElementById("pass").value === "3667"){
+    startSecret();
+  } else {
+    alert("Sai mật khẩu 😏");
+  }
 }
 
-/* RUNG */
-function shakeScreen(){
- document.body.style.animation="shake 0.4s";
- setTimeout(()=>document.body.style.animation="",400);
+/* SECRET HEART FULL */
+function startSecret(){
+  document.getElementById("secretCanvas").style.display="block";
+
+  const c = document.getElementById("secretCanvas");
+  const ctx = c.getContext("2d");
+
+  c.width = innerWidth;
+  c.height = innerHeight;
+
+  let hearts = [];
+
+  function spawn(){
+    hearts.push({
+      x: Math.random()*c.width,
+      y: c.height,
+      size: Math.random()*12+6,
+      speed: Math.random()*3+1,
+      a:1
+    });
+  }
+
+  function drawHeart(x,y,s){
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.bezierCurveTo(x,y-s/2,x-s,y-s/2,x-s,y);
+    ctx.bezierCurveTo(x-s,y+s/2,x,y+s,x,y+s);
+    ctx.bezierCurveTo(x,y+s,x+s,y+s/2,x+s,y);
+    ctx.bezierCurveTo(x+s,y-s/2,x,y-s/2,x,y);
+    ctx.fill();
+  }
+
+  function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,c.width,c.height);
+
+    hearts.forEach((h,i)=>{
+      ctx.globalAlpha=h.a;
+      ctx.fillStyle="#ff69b4";
+      drawHeart(h.x,h.y,h.size);
+
+      h.y-=h.speed;
+      h.a-=0.01;
+
+      if(h.a<=0) hearts.splice(i,1);
+    });
+
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+
+  setInterval(spawn,80);
+  draw();
 }
 
-/* NỔ TIM */
-function explodeHearts(){
- const c=secretCanvas;
- const ctx=c.getContext("2d");
- c.width=innerWidth;
- c.height=innerHeight;
+/* PARTICLE TIM NỀN */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
 
- let hearts=[];
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
- for(let i=0;i<120;i++){
-  hearts.push({
-   x:c.width/2,
-   y:c.height/2,
-   dx:(Math.random()-0.5)*8,
-   dy:(Math.random()-0.5)*8,
-   size:Math.random()*10+5,
-   a:1
+let particles = [];
+
+for(let i=0;i<100;i++){
+  particles.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*3 + 2,
+    dx: Math.random()-0.5,
+    dy: Math.random()-0.5
   });
- }
+}
 
- function drawHeart(x,y,s){
+function drawHeart(x,y,s){
   ctx.beginPath();
   ctx.moveTo(x,y);
   ctx.bezierCurveTo(x,y-s/2,x-s,y-s/2,x-s,y);
@@ -244,95 +248,26 @@ function explodeHearts(){
   ctx.bezierCurveTo(x,y+s,x+s,y+s/2,x+s,y);
   ctx.bezierCurveTo(x+s,y-s/2,x,y-s/2,x,y);
   ctx.fill();
- }
-
- function draw(){
-  ctx.fillStyle="rgba(0,0,0,0.2)";
-  ctx.fillRect(0,0,c.width,c.height);
-
-  hearts.forEach((h,i)=>{
-   ctx.globalAlpha=h.a;
-   ctx.fillStyle="#ff4da6";
-   drawHeart(h.x,h.y,h.size);
-
-   h.x+=h.dx;
-   h.y+=h.dy;
-   h.a-=0.01;
-
-   if(h.a<=0) hearts.splice(i,1);
-  });
-
-  ctx.globalAlpha=1;
-  requestAnimationFrame(draw);
- }
-
- draw();
-}
-
-/* sao băng */
-setInterval(()=>{
- let m=document.createElement("div");
- m.className="meteor";
- m.style.top=Math.random()*300+"px";
- m.style.left=innerWidth+"px";
- m.style.animationDuration=(Math.random()+0.5)+"s";
- document.body.appendChild(m);
- setTimeout(()=>m.remove(),1000);
-},800);
-
-/* hệ mặt trời */
-function createSolar(side){
- let box=document.querySelector("."+side);
- let sun=document.createElement("div");
- sun.className="sun";
- box.appendChild(sun);
-
- for(let i=1;i<=3;i++){
-  let o=document.createElement("div");
-  o.className="orbit";
-  o.style.width=40*i+"px";
-  o.style.height=40*i+"px";
-  o.style.top="50%";
-  o.style.left="50%";
-  o.style.transform="translate(-50%,-50%)";
-  o.style.animationDuration=5*i+"s";
-
-  let p=document.createElement("div");
-  p.className="planet";
-  p.style.background=`hsl(${Math.random()*360},100%,60%)`;
-
-  o.appendChild(p);
-  box.appendChild(o);
- }
-}
-createSolar("left");
-createSolar("right");
-
-/* tim nền */
-const c=document.getElementById("bg");
-const ctx=c.getContext("2d");
-c.width=innerWidth;
-c.height=innerHeight;
-
-let p=[];
-for(let i=0;i<80;i++){
- p.push({x:Math.random()*c.width,y:Math.random()*c.height});
 }
 
 function draw(){
- ctx.clearRect(0,0,c.width,c.height);
- ctx.fillStyle="pink";
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = "#ff69b4";
 
- p.forEach(a=>{
-  ctx.fillRect(a.x,a.y,3,3);
-  a.y-=0.5;
-  if(a.y<0)a.y=c.height;
- });
+  particles.forEach(p=>{
+    drawHeart(p.x, p.y, p.r*2);
 
- requestAnimationFrame(draw);
+    p.x+=p.dx;
+    p.y+=p.dy;
+
+    if(p.x<0||p.x>canvas.width) p.dx*=-1;
+    if(p.y<0||p.y>canvas.height) p.dy*=-1;
+  });
+
+  requestAnimationFrame(draw);
 }
-draw();
 
+draw();
 </script>
 
 </body>
