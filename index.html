@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Web tao</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    color: white;
+    text-align: center;
+    background: url('https://4kwallpapers.com/images/walls/thumbs_3t/19435.png') no-repeat center/cover;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* overlay tối */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+/* khung chính */
+.container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* avatar */
+.avatar {
+    width: 120px;
+    border-radius: 50%;
+    border: 3px solid white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}
+
+/* icon */
+.icons a {
+    margin: 10px;
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.icons a:hover {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* particle */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<canvas id="particles"></canvas>
+
+<div class="container">
+    <img src="https://i.imgur.com/your-avatar.png" class="avatar" id="avatar">
+
+    <h1>Duy Ngọc</h1>
+    <p>💔 Đang độc thân</p>
+
+    <div class="icons">
+        <a href="https://www.facebook.com/profile.php?id=61582623579599" target="_blank">📘</a>
+    </div>
+
+    <p>Click avatar để đổi ảnh 😎</p>
+</div>
+
+<input type="file" id="upload" hidden>
+
+<script>
+// đổi avatar
+document.getElementById("avatar").onclick = () => {
+    document.getElementById("upload").click();
+};
+
+document.getElementById("upload").onchange = function(e){
+    const file = e.target.files[0];
+    if(file){
+        document.getElementById("avatar").src = URL.createObjectURL(file);
+    }
+};
+
+// particle
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<100;i++){
+    particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*2,
+        d: Math.random()*1
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="white";
+    ctx.beginPath();
+    for(let i=0;i<particles.length;i++){
+        let p=particles[i];
+        ctx.moveTo(p.x,p.y);
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true);
+    }
+    ctx.fill();
+    update();
+}
+
+function update(){
+    for(let i=0;i<particles.length;i++){
+        let p=particles[i];
+        p.y += p.d;
+        if(p.y > canvas.height){
+            p.y = 0;
+            p.x = Math.random()*canvas.width;
+        }
+    }
+}
+
+setInterval(draw,33);
+</script>
+
+</body>
+</html>
